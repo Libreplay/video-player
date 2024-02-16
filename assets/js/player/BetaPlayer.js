@@ -5,22 +5,20 @@ import ControlsManager from './ControlsManager.js';
 class BetaPlayer {
     constructor() {
         this.player = document.querySelector("video");
-
         this.audioSubtitleMenu = new AudioSubtitleMenu(this.player);
         this.fullScreenManager = new FullScreenManager(this.player);
         this.controlsManager = new ControlsManager(this.player);
-
         this.playPauseButton = document.querySelector('.play-pause');
         this.fullscreenButton = document.querySelector('.fullscreen');
         this.videoProgress = document.querySelector('.video-progress');
         this.currentTimeDisplay = document.querySelector('.current-time');
         this.durationDisplay = document.querySelector('.duration');
-        this.videoControls = document.querySelector('.controls');
         this.volumeSlider = document.querySelector('.volume-slider');
         this.pipButton = document.querySelector('.pip');
         this.playPromise = null;
         this.isMouseActive = false;
         this.timeoutId;
+        this.anime = null;
     }
 
     init() {
@@ -116,7 +114,7 @@ class BetaPlayer {
         this.audioSubtitleMenu.initMenu();
     }
 
-
+    
 
     loadDefaultVideo() {
         this.player.controls = false;

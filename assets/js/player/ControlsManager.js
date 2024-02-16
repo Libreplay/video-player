@@ -1,3 +1,4 @@
+import anime from './libs/anime.es.js';
 class ControlsManager {
     constructor(player) {
         // Initialisation des propriétés et des écouteurs d'événements

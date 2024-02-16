@@ -5,6 +5,7 @@ class AudioSubtitleMenu {
         this.audioAndSubtitleButton = document.getElementById('audioAndSubtitleButton');
         this.audioAndSubtitleMenu = document.getElementById('audioAndSubtitleMenu');
         this.closeAudioAndSubtitleMenuButton = document.getElementById('closeAudioAndSubtitleMenu');
+        this.playPromise = null;
     }
 
     initMenu() {
