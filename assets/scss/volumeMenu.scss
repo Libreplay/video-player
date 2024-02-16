@@ -1,0 +1,35 @@
+.volume-container {
+    position: relative;
+    display: inline-block;
+
+    .volume-menu {
+        position: absolute;
+        top: -5px;
+        left: 0;
+        width: 100px;
+        background-color: $secondary-color;
+        border-radius: 5px;
+        padding: 5px;
+        display: none;
+        z-index: 100;
+        overflow: hidden;
+    }
+
+    &:hover {
+        .volume-button {
+            visibility: hidden;
+        }
+
+        .volume-menu {
+            display: block;
+        }
+    }
+
+    &:hover .volume-menu {
+        display: block;
+    }
+
+    .volume-slider {
+        width: 100%;
+    }
+}

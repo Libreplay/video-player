@@ -1,0 +1,73 @@
+::-webkit-media-controls {
+    display: none !important;
+}
+
+video::-webkit-media-controls {
+    display: none !important;
+}
+
+video::-webkit-media-controls-enclosure {
+    display: none !important;
+}
+
+// Déclaration des variables
+$primary-color: white;
+$secondary-color: #333;
+
+// Styles pour le conteneur vidéo
+.video-container {
+    position: relative;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    /* Styles pour les smartphones petits à moyens */
+    @media only screen and (max-width: 480px) {
+        /* Ajoutez vos styles CSS pour les smartphones petits à moyens ici */
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Styles pour les tablettes en mode paysage */
+    @media only screen and (min-width: 769px) {
+        /* Ajoutez vos styles CSS pour les tablettes en mode paysage ici */
+        width: 100%;
+        height: 100%;
+    }
+
+    @media only screen and (min-width: 1200px) {
+        /* Ajoutez vos styles CSS pour les tablettes en mode paysage ici */
+        width: 950px;
+        height: 534px;
+    }
+
+    video {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Adapter la vidéo pour couvrir le conteneur tout en conservant les proportions */
+    }
+}
+
+
+
+.background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: blur(25px);
+}
+
+.bodyMovie {
+    background: linear-gradient(to bottom, #1c2938, #1c2938);
+    height: 100vh;
+}
+
+@import 'controls.scss';
+@import 'audioMenu.scss';
+@import 'volumeMenu.scss';
