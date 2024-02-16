@@ -27,6 +27,7 @@ class BetaPlayer {
 
         this.player.addEventListener("loadstart", () => {
             this.playPauseButton.disabled = true;
+            this.durationDisplay.textContent = "00:00:00";
         });
 
         this.player.addEventListener('loadeddata', () => {
@@ -37,6 +38,11 @@ class BetaPlayer {
             const durationMinutes = Math.floor(duration / 60);
             const durationSeconds = duration - durationMinutes * 60;
             this.durationDisplay.textContent = `${durationHours}:${durationMinutes < 10 ? '0' : ''}${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
+            
+            if(this.player.dataset.time != "0"){
+                this.player.currentTime = this.player.dataset.time;
+            }
+            
         }, { once: true });
 
         this.player.addEventListener("click", () => {
