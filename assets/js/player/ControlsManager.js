@@ -23,10 +23,7 @@ class ControlsManager {
                 easing: 'easeOutQuad' // Courbe d'accélération de l'animation
             });
         }
-
     }
-
-    // Autres méthodes
 }
 
 export default ControlsManager;

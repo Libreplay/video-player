@@ -46,8 +46,6 @@ class FullScreenManager {
     toggleFullscreenClass() {
         this.videoControls.classList.toggle('fullscreen', !!document.fullscreenElement);
     }
-
-    // Autres méthodes
 }
 
 export default FullScreenManager;

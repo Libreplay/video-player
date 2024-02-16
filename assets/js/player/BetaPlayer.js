@@ -31,15 +31,12 @@ class BetaPlayer {
         });
 
         this.player.addEventListener('loadeddata', () => {
-            console.log(this.player.textTracks)
             this.playPauseButton.disabled = false;
             this.player.volume = 0.5;
             const duration = Math.floor(this.player.duration);
-            // Heure
             const durationHours = Math.floor(duration / 3600);
             const durationMinutes = Math.floor(duration / 60);
             const durationSeconds = duration - durationMinutes * 60;
-            // Affichage du temps total
             this.durationDisplay.textContent = `${durationHours}:${durationMinutes < 10 ? '0' : ''}${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
         }, { once: true });
 
@@ -158,8 +155,6 @@ class BetaPlayer {
     }
 
     togglePlayPause(e) {
-        console.log(this.player,)
-
         if (this.player.paused) {
             this.player.play();
         } else {

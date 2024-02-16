@@ -39,7 +39,6 @@ class AudioSubtitleMenu {
                 }
 
                 this.player.addEventListener("loadeddata", () => {
-                    console.log("Ici")
                     setTimeout(() => {
                         this.player.currentTime = parseFloat(oldTime);
                         this.closeAudioAndSubtitleMenu();
@@ -63,8 +62,6 @@ class AudioSubtitleMenu {
                 const value = e.target.value;
                 const vostfr = this.filterSubtitlesByLanguage('fr')[0];
                 const vost = this.filterSubtitlesByLanguage('en')[0];
-
-                console.log(value, vostfr)
 
                 if (value === "disable") {
                     vostfr.mode = 'disabled';
