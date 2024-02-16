@@ -3,6 +3,7 @@ class ControlsManager {
     constructor(player) {
         // Initialisation des propriétés et des écouteurs d'événements
         this.player = player;
+
     }
 
     showControls() {

@@ -14,6 +14,7 @@ class BetaPlayer {
         this.currentTimeDisplay = document.querySelector('.current-time');
         this.durationDisplay = document.querySelector('.duration');
         this.volumeSlider = document.querySelector('.volume-slider');
+        this.playerContainer = document.querySelector('.video-container');
         this.pipButton = document.querySelector('.pip');
         this.playPromise = null;
         this.isMouseActive = false;
@@ -81,28 +82,30 @@ class BetaPlayer {
             this.fullScreenManager.toggleFullscreenClass();
         });
 
+        // Écouteur d'événement pour afficher les contrôles lorsque la souris bouge sur la vidéo
+        this.playerContainer.addEventListener('mousemove', () => {
+            this.controlsManager.showControls();
+        });
+
         // Écouteur d'événement pour détecter lorsque la souris quitte la vidéo
-        this.player.addEventListener('mouseleave', () => {
-            this.isMouseActive = false;
+        this.playerContainer.addEventListener('mouseleave', () => {
             setTimeout(() => {
                 this.controlsManager.hideControls();
             }, 5000);
         });
 
         // Écouteur d'événement pour afficher les contrôles lorsque la souris passe sur la vidéo
-        this.player.addEventListener('mouseenter', () => {
+        this.playerContainer.addEventListener('mouseenter', () => {
             this.controlsManager.showControls();
-            this.isMouseActive = true;
         });
 
         // Événements tactiles pour gérer les contrôles sur les appareils mobiles
-        this.player.addEventListener('touchstart', () => {
+        this.playerContainer.addEventListener('touchstart', () => {
             this.controlsManager.showControls();
-            this.isMouseActive = true;
+
         });
 
-        this.player.addEventListener('touchend', () => {
-            this.isMouseActive = false;
+        this.playerContainer.addEventListener('touchend', () => {
             this.controlsManager.hideControls();
         });
 

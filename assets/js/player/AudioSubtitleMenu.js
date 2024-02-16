@@ -96,14 +96,19 @@ class AudioSubtitleMenu {
 
     toggleAudioAndSubtitleMenu() {
         if (this.audioAndSubtitleMenu.classList.contains('hidden')) {
-            this.audioAndSubtitleMenu.classList.remove('hidden');
+            this.player.play().then(() => {
+                this.player.pause();
+                this.audioAndSubtitleMenu.classList.remove('hidden');
+            });
         } else {
             this.audioAndSubtitleMenu.classList.add('hidden');
+            this.player.play();
         }
     }
 
     closeAudioAndSubtitleMenu() {
         this.audioAndSubtitleMenu.classList.add('hidden');
+        this.player.play();
     }
 
 
