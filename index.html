@@ -18,11 +18,15 @@
     <div class="video-container m-auto mt-lg-5" data-fullscreen="false">
         <video controls preload="metadata"
             poster="https://archive.org/download/la-nuit-des-morts-vivants-1968-french-webrip/__ia_thumb.jpg"
-            data-languages='["VF"]' data-defaultlang="VF"
-            data-src="https://archive.org/download/la-nuit-des-morts-vivants-1968-french-webrip/LA%20NUIT%20DES%20MORTS-VIVANTS%20%281968%29%20FRENCH%20WEBRip.mp4"
+            data-languages='["VF"]' 
+            data-defaultlang="VF"
+            data-src="null"
             data-time="0"
-            data-vf="https://archive.org/download/la-nuit-des-morts-vivants-1968-french-webrip/LA%20NUIT%20DES%20MORTS-VIVANTS%20%281968%29%20FRENCH%20WEBRip.mp4"
-            data-vo="null" data-slug="la-nuit-des-morts-vivants" data-mobile="false">
+            data-vf="/playlist.m3u8"
+            data-vo="null" 
+            data-slug="la-nuit-des-morts-vivants" 
+            data-quality='["1080", "720", "420"]'
+            data-mobile="false">
             <track kind="captions" label="English" src="null" srclang="en" />
             <track kind="captions" label="Français" src="null" srclang="fr" />
         </video>
@@ -61,7 +65,7 @@
                 </div>
             </div>
             <div class="progress-bar-container">
-                <input type="range" min="0" max="100" value="0" class="video-progress">
+                <input type="range" min="0" max="100" class="video-progress">
             </div>
         </div>
 
@@ -123,6 +127,12 @@
                                     </label>
                                 </div>
                             </div>
+                    </div>
+                    <div class="col-12">
+                        <h2 class="text-center h5 mb-3 me-lg-0">Qualité</h5>
+                        <div class="mt-2 mb-2 d-flex d-lg-block">
+                            <select name="quality" id="quality" class="form-control"></select>
+                        </div>
                     </div>
                 </div>
             </div>

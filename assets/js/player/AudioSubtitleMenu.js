@@ -1,6 +1,7 @@
 class AudioSubtitleMenu {
-    constructor(player) {
+    constructor(player, hls) {
         this.player = player;
+        this.hls = hls;
         this.audioAndSubtitleMenu = document.getElementById('audioAndSubtitleMenu');
         this.audioAndSubtitleButton = document.getElementById('audioAndSubtitleButton');
         this.audioAndSubtitleMenu = document.getElementById('audioAndSubtitleMenu');
@@ -10,6 +11,8 @@ class AudioSubtitleMenu {
 
     initMenu() {
         const languages = JSON.parse(this.player.dataset.languages || '[]');
+        const qualitySelect = document.getElementById('quality');
+        const quality = JSON.parse(this.player.dataset.quality || '[]');
         const defaultLang = this.player.dataset.defaultlang;
         const allInputAudios = document.querySelectorAll('input[name="audio"]');
         const allSubtitles = document.querySelectorAll('input[name="subtitle"]');
@@ -80,6 +83,29 @@ class AudioSubtitleMenu {
                 }
             });
         });
+
+        quality.forEach((value) => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.text = value;
+            qualitySelect.appendChild(option);
+        });
+
+        qualitySelect.addEventListener('change', (e) => {
+            const quality = e.target.value;
+            if(quality == "1080"){
+                this.hls.currentLevel = 2;
+                qualitySelect.value = 1080;
+            }
+            if(quality == "720"){
+                this.hls.currentLevel = 1;
+                qualitySelect.value = 720;
+            }
+            if(quality == "420"){
+                this.hls.currentLevel = 0;
+                qualitySelect.value = 420;
+            }
+        })
 
         this.handleEvent();
     }

@@ -1,11 +1,13 @@
 import AudioSubtitleMenu from './AudioSubtitleMenu.js';
 import FullScreenManager from './FullScreenManager.js';
 import ControlsManager from './ControlsManager.js';
+import HLS from './libs/hls.mjs';
 
 class BetaPlayer {
     constructor() {
         this.player = document.querySelector("video");
-        this.audioSubtitleMenu = new AudioSubtitleMenu(this.player);
+        this.hls = new HLS();
+        this.audioSubtitleMenu = new AudioSubtitleMenu(this.player, this.hls);
         this.fullScreenManager = new FullScreenManager(this.player);
         this.controlsManager = new ControlsManager(this.player);
         this.playPauseButton = document.querySelector('.play-pause');
@@ -38,11 +40,11 @@ class BetaPlayer {
             const durationMinutes = Math.floor(duration / 60);
             const durationSeconds = duration - durationMinutes * 60;
             this.durationDisplay.textContent = `${durationHours}:${durationMinutes < 10 ? '0' : ''}${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
-            
-            if(this.player.dataset.time != "0"){
+
+            if (this.player.dataset.time != "0") {
                 this.player.currentTime = this.player.dataset.time;
             }
-            
+
         }, { once: true });
 
         this.player.addEventListener("click", () => {
@@ -123,20 +125,53 @@ class BetaPlayer {
         this.audioSubtitleMenu.initMenu();
     }
 
-    
+
 
     loadDefaultVideo() {
         this.player.controls = false;
         const defaultLang = this.player.dataset.defaultlang;
 
-        if (defaultLang == "VF") {
-            this.player.src = this.player.dataset.vf;
-            this.player.load();
-        }
+        if (HLS.isSupported()) {
+            console.log("Supported")
+            if (defaultLang == "VF") {
+                this.hls.loadSource(this.player.dataset.vf);
+                this.hls.attachMedia(this.player);
+                this.hls.on(HLS.Events.MANIFEST_PARSED, () => {
+                    console.log("Manifest parsed")
+                    console.log(this.hls.levels)
+                    this.hls.currentLevel = 2;
+                    console.log(this.hls.loadLevel);
+                });
+            }
 
-        if (defaultLang == "VO") {
-            this.player.src = this.player.dataset.vo;
-            this.player.load();
+            if (defaultLang == "VO") {
+                this.hls.loadSource(this.player.dataset.vf);
+                this.hls.attachMedia(this.player);
+                this.hls.on(HLS.Events.MANIFEST_PARSED, () => {
+                    console.log("Manifest parsed")
+                    console.log(this.hls.levels)
+                    this.hls.currentLevel = 2;
+                    console.log(this.hls.loadLevel);
+                });
+            }
+
+            this.hls.on(HLS.Events.LEVEL_SWITCHED, (event, data) => {
+                console.info("Level changing to " + data.level);
+            });
+
+            this.hls.on(HLS.Events.LEVEL_LOADING, (event, data) => {
+                console.info("Chargement du niveau");
+            });
+
+            this.hls.on(HLS.Events.LEVEL_LOADED, (event, data) => {
+                console.info("Niveau chargé");
+                console.log("Current", this.hls.currentLevel)
+            });
+
+            // Écouter les événements d'erreur HLS.js
+            this.hls.on(HLS.Events.ERROR, function (event, data) {
+                console.error("HLS error:", event, data);
+            });
         }
     }
 
@@ -148,7 +183,10 @@ class BetaPlayer {
         const currentTime = Math.floor(this.player.currentTime);
         const duration = Math.floor(this.player.duration);
         const progressPercentage = (currentTime / duration) * 100;
-        this.videoProgress.value = progressPercentage;
+        this.videoProgress.value = Math.floor(progressPercentage);
+        console.log(this.videoProgress.value, Math.floor(progressPercentage))
+        this.videoProgress.setAttribute('value', progressPercentage);
+
 
         const currentMinutes = Math.floor(currentTime / 60);
         const currentSeconds = currentTime - currentMinutes * 60;
